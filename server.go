@@ -2,12 +2,13 @@ package main
 
 import (
 		//"log"
-		"io"
+		"fmt"
     "net/http"
 		//"time"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
+
 
 	w.Header().Set("Content-Type", "text/plain;")
 	w.Header().Set("Content-Type", "text/event-stream")
@@ -20,7 +21,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	for i := 0; i < 50000; i++ {
 		//log.Println("Prcoessing")
-		io.WriteString(w, "Response number")
+		fmt.Fprintf(w, "Response number %d\n", i)
+		//flusher.Flush()
 		//time.Sleep(50 * time.Millisecond)
 	}
 }

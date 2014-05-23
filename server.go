@@ -1,10 +1,10 @@
 package main
 
 import (
-		//"log"
+		"log"
 		"fmt"
     "net/http"
-		//"time"
+		"runtime"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -20,6 +20,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	//}()
 
 	for i := 0; i < 50000; i++ {
+
 		//log.Println("Prcoessing")
 		fmt.Fprintf(w, "Response number %d\n", i)
 		//flusher.Flush()
@@ -28,6 +29,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+		runtime.GOMAXPROCS(3)
+	  log.Printf("Number of cores %d", runtime.GOMAXPROCS(0));
     http.HandleFunc("/", handler)
     http.ListenAndServe(":8080", nil)
 }
